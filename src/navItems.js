@@ -1,7 +1,7 @@
 const navItems = {
     '1': [
         { name: "Home", path: "/home" },
-        { name: "Study Material", path: "/study-material"},
+        { name: "Study Material", path: "/home/study-material"},
         { name: "Logout", path: "/logout"},
     ],
     '2': [

@@ -1,0 +1,6 @@
+.text-area, .markdown {
+    width: 100%;
+    height: 70vh;
+    overflow: scroll;
+    text-align: left;
+}

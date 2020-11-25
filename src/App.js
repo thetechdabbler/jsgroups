@@ -9,9 +9,11 @@ import NoMatch from './components/NoMatch';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import Spinner from './utilComponents/Spinner/Spinner';
+import Home from './containers/home/Home';
+import Admin from './containers/admin/Admin';
 
-const Home = lazy(() => import('./containers/home/Home'));
-const Admin = lazy(() => import('./containers/Admin/Admin'));
+// const Home = lazy(() => import('./containers/home/Home'));
+// const Admin = lazy(() => import('./containers/Admin/Admin'));
 
 toast.configure()
 function App(props) {

@@ -4,7 +4,6 @@ import './spinner.css'
 import {connect} from 'react-redux'
 
 const Spinner = (props) => {
-    console.log("asdf" + props.show);
     const spinnerStyle = !props.show ? {display: "none"} : {}; 
     const loader = (<div className="spinner" style={spinnerStyle}>
         <div className="spinner-grow" style={{ width: "3rem", height: "3rem" }} role="status">

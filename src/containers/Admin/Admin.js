@@ -6,7 +6,7 @@ import Spinner from '../../utilComponents/Spinner/Spinner';
 const Admin = (props) => {
     return (
         <div>
-            <h1>Admin HOme page</h1>
+            <h1>Admin Home page</h1>
         </div>
     )
 }

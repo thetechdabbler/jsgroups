@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { isAuthenticated } from '../Auth';

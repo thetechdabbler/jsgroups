@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../../components/Header';
 import Assignments from '../admin/Assignments/Assignments';
+import StudyAssignments from './StudyAssignments';
 import AddEdit from '../admin/Assignments/AddEdit';
 import StudyMaterial from './StudyMaterial';
 
@@ -23,7 +24,9 @@ const Home = (props) => {
                     <Route exact path={`${url}/assignments`} >
                         <Assignments/>
                     </Route>
-                    
+                    <Route exact path={`${url}/study-assignments`} >
+                        <StudyAssignments/>
+                    </Route>
                 </Switch>
             </>
     )

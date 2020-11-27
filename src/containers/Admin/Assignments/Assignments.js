@@ -27,7 +27,7 @@ const Assignments = (props) => {
             })
     }, []);
 
-    const deleteAssignment = (e, id) => {
+    const deleteAssignment = (e, { id }) => {
         e.preventDefault();
         props.spinnerActions.showSpinner();
         AxiosInstance.delete(`${ASSIGNMENTS_URL}/${id}`)
@@ -54,15 +54,15 @@ const Assignments = (props) => {
                 <td>{assignment.name}</td>
                 <td>
                     <Link to={{ 
-                            pathname: `/home/assignments/edit/${assignment.id}`, 
+                            pathname:`/home/assignments/edit/${assignment.id}`, 
                             state: { name: assignment.name, content: assignment.content }
                         }}>
                         <FontAwesomeIcon icon={faEdit} />
                     </Link>
                     {" "}
-                    {/* <a href="#" onClick={(e, assignment.id) => deleteAssignment(e, id)}>
+                    <a href="#" onClick={(e) => deleteAssignment(e, assignment)}>
                         <FontAwesomeIcon icon={faTrash} />
-                    </a> */}
+                    </a>
                 </td>
             </tr>
         )

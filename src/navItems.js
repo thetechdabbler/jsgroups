@@ -3,6 +3,7 @@ const navItems = {
         { name: "Home", path: "/home" },
         { name: "Study Material", path: "/home/study-material"},
         { name: "Assignments", path: "/home/assignments"},
+        { name: "Study Assignments", path: "/home/study-assignments" },
         { name: "Logout", path: "/logout"},
     ],
     '2': [

@@ -29,7 +29,7 @@ const StudyAssignments = (props) => {
 
     const assignmentRows = assignments.map((assignment) => {
         return (
-            <li className="list-group-item">
+            <li className="list-group-item" key={assignment.id}>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="font-weight-bold">{assignment.name}</div>
                     <div>

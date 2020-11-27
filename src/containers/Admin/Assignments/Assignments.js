@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { AxiosInstance } from '../../../axiosInstance';
 import { ASSIGNMENTS_URL } from '../../../apiUrlConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ const Assignments = (props) => {
         AxiosInstance.delete(`${ASSIGNMENTS_URL}/${id}`)
             .then((response) => {
                 let filterAssignments = assignments.filter((assignment) => {
-                    if(assignment.id != id) {
+                    if (assignment.id != id) {
                         return assignment;
                     }
                 });
@@ -53,16 +53,23 @@ const Assignments = (props) => {
                 <td>{assignment.id}</td>
                 <td>{assignment.name}</td>
                 <td>
-                    <Link to={{ 
-                            pathname:`/home/assignments/edit/${assignment.id}`, 
-                            state: { name: assignment.name, content: assignment.content }
-                        }}>
+                    <Link to={{
+                        pathname: `/home/assignments/edit/${assignment.id}`,
+                        state: { name: assignment.name, content: assignment.content }
+                    }}>
                         <FontAwesomeIcon icon={faEdit} />
                     </Link>
                     {" "}
-                    <a href="#" onClick={(e) => deleteAssignment(e, assignment)}>
+                    <a href="/" onClick={(e) => deleteAssignment(e, assignment)}>
                         <FontAwesomeIcon icon={faTrash} />
                     </a>
+                    {" "}
+                    <Link to={{
+                        pathname: `/home/assignments/groups/${assignment.id}`,
+                        state: { name: assignment.name }
+                    }}>
+                        <FontAwesomeIcon icon={faUsers} />
+                    </Link>
                 </td>
             </tr>
         )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown';
-import { Link, useLocation, withRouter } from 'react-router-dom';
+import { Link, useLocation, useParams, withRouter } from 'react-router-dom';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
 const SolveAssignment = (props) => {
+    const { id } = useParams();
     const [code, setCode] = useState("");
     const [theme, setTheme] = useState("github");
     const { state: { assignment } } = useLocation();    
@@ -27,13 +28,13 @@ const SolveAssignment = (props) => {
             <div className="row mt-5">
                 <div className="d-flex flex-column justify-content-start col-md-12">
                     <div className="col-md-12 d-flex justify-content-start align-items-baseline">
-                            <div className="col-md-4 d-flex justify-content-start">
+                            <div className="col-md-3 d-flex justify-content-start">
                                 <Link to="/home/study-assignments">
                                     <FontAwesomeIcon icon={faLongArrowAltLeft} size="2x" />
                                 </Link>
                             </div>
-                            <div className="d-flex justify-content-start col-md-5">
-                                <h1 className="display-4">{assignment.name}</h1>
+                            <div className="d-flex justify-content-center col-md-7 text-center pr-3 pl-3">
+                                <h1 className="display-4 text-center">{assignment.name}</h1>
                             </div>    
                     </div>
                     <div className="border border-dark rounded mt-3">

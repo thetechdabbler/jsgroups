@@ -5,6 +5,7 @@ import Assignments from '../admin/Assignments/Assignments';
 import StudyAssignments from './StudyAssignments';
 import AddEdit from '../admin/Assignments/AddEdit';
 import StudyMaterial from './StudyMaterial';
+import SolveAssignment from './SolveAssignment';
 
 const Home = (props) => {
     const { url } = props.match;
@@ -20,6 +21,9 @@ const Home = (props) => {
                     </Route>
                     <Route path={`${url}/assignments/edit/:id`} >
                         <AddEdit/>
+                    </Route>
+                    <Route exact path={`${url}/assignments/1`} >
+                        <SolveAssignment />
                     </Route>
                     <Route exact path={`${url}/assignments`} >
                         <Assignments/>

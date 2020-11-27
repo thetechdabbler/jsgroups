@@ -33,7 +33,7 @@ const StudyAssignments = (props) => {
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="font-weight-bold">{assignment.name}</div>
                     <div>
-                        <Link to={`/home/assignments/${assignment.id}`}>
+                        <Link to={{ pathname: `/home/assignments/${assignment.id}`, state: {assignment}}}>
                             <FontAwesomeIcon icon={faArrowCircleRight} />
                         </Link>
                     </div>

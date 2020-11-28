@@ -23,9 +23,15 @@ const SolveAssignment = (props) => {
         setCode(value);
     }
 
+    const onSubmit = (e) => {
+        console.log({id})
+        console.log({code});
+        console.log("submitting assignment");
+    }
+
     return (
         <div className="container mt-2">
-            <div className="row mt-5">
+            <div className="row mt-2">
                 <div className="d-flex flex-column justify-content-start col-md-12">
                     <div className="col-md-12 d-flex justify-content-start align-items-baseline">
                             <div className="col-md-3 d-flex justify-content-start">
@@ -40,14 +46,22 @@ const SolveAssignment = (props) => {
                     <div className="border border-dark rounded mt-3">
                         <ReactMarkdown source={assignment.content} />
                     </div>
-                    <div className="col-md-2 mt-2">
-                        <select className="custom-select" onChange={(e) => setTheme(e.target.value)}>
-                            { themes.map( (theme, index) => {
-                              return <option value={theme} key={index}>{theme}</option>
-                            })}
-                        </select>
+                    <div className="col-md-12 d-flex justify-content-between align-items-baseline p-0 mt-2">
+                        <div className="col-md-2 p-0">
+                            <select className="custom-select" onChange={(e) => setTheme(e.target.value)}>
+                                { themes.map( (theme, index) => {
+                                return <option value={theme} key={index}>{theme}</option>
+                                })}
+                            </select>
+                        </div>
+                        <div className="col-md-2 p-0 d-flex justify-content-end">
+                            <button className="btn btn-success btn-block" onClick={onSubmit}>
+                                   Submit
+                            </button>
+                        </div>
                     </div>
-                    <div className="border border-dark rounded mt-3">
+                    
+                    <div className="border border-dark rounded mt-3 mb-2">
                         <AceEditor
                             mode="javascript"
                             theme={theme}
@@ -64,7 +78,7 @@ const SolveAssignment = (props) => {
                                 showLineNumbers: true,
                                 tabSize: 2,
                             }}
-                            style={{width: "100%", minHeight: "500px"}} />
+                            style={{width: "100%", height: "500px"}} />
                     </div>
                 </div>
             </div>

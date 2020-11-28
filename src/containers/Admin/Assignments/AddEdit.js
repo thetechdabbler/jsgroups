@@ -75,7 +75,7 @@ const AddEdit = (props) => {
                 <div className="d-flex justify-content-start align-items-baseline col-md-12 p-0">
                     <div className="d-flex justify-content-start col-md-1 p-0">
                         <div className="col-md-1 p-0">
-                            <Link to="/home/assignments">
+                            <Link to="/admin/home/assignments">
                                 <FontAwesomeIcon icon={faLongArrowAltLeft} size="2x" />
                             </Link>
                         </div>

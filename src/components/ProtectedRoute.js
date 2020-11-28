@@ -5,7 +5,7 @@ const ProtectedRoute = (props) => {
     const {component, userRole, ...rest} = props;
 
     const redirectToDesiredDashboard = (userRole) => {
-        if(Number(userRole) === 1) {
+        if(Number(userRole) === 3) {
             return <Redirect to="/admin/home" />
         }
         return <Redirect to="/home" />

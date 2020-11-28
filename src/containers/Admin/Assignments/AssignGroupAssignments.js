@@ -69,7 +69,7 @@ const AssignGroupAssignments = (props) => {
                 <div className="d-flex flex-column justify-content-start col-md-12">
                     <div className="col-md-12 d-flex justify-content-start align-items-baseline">
                         <div className="col-md-3 d-flex justify-content-start">
-                            <Link to="/home/assignments">
+                            <Link to="/admin/home/assignments">
                                 <FontAwesomeIcon icon={faLongArrowAltLeft} size="2x" />
                             </Link>
                         </div>
@@ -100,13 +100,15 @@ const AssignGroupAssignments = (props) => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="d-flex flex-row col-md-2 justify-content-end mb-2 p-0">
-                                <button
-                                    className="btn btn-success btn-round btn-block"
-                                    type="submit"
-                                >
-                                    Submit
-                                </button>
+                            <div className="d-flex justify-content-end mb-2">
+                                <div className="col-md-2 p-0">
+                                    <button
+                                        className="btn btn-success btn-round btn-block"
+                                        type="submit"
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

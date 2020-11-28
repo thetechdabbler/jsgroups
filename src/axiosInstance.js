@@ -1,5 +1,5 @@
 import Axios from "axios";
-import * as ApiContants from './apiUrlConstants';
+import * as ApiConstants from './apiUrlConstants';
 
 let headers = {};
 
@@ -10,6 +10,6 @@ if( localStorage.getItem('token') ) {
 }
 
 export const AxiosInstance = Axios.create({
-    baseURL: ApiContants.BASE_URL,
+    baseURL: ApiConstants.BASE_URL,
     headers
 });

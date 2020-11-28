@@ -7,6 +7,8 @@ import Modal from '../utilComponents/Modal/Modal';
 import * as spinnerActions from '../redux/actions/spinnerActions';
 import * as modalActions from '../redux/actions/modalActions';
 import { connect } from 'react-redux';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Header = (props) => {
     const authUserRole = localStorage.getItem('role');
@@ -29,18 +31,21 @@ const Header = (props) => {
         props.history.push('/login');
     }
 
-    const navBartems = isUserAuthenticated ? (
+    const navBarItems = isUserAuthenticated ? (
         navs.map((nav, index) => {
             if (nav.name.toLowerCase() == 'logout') {
                 return (
                     <li className="nav-item" key={index}>
-                        <NavLink className="nav-link text-capitalize font-weight-bold" to={nav.path} onClick={showModalPopup}>{nav.name}</NavLink>
+                        <NavLink className="nav-link text-capitalize" to={nav.path} onClick={showModalPopup}>
+                            {nav.name}{" "}
+                            <FontAwesomeIcon icon={faSignOutAlt}/>
+                        </NavLink>
                     </li>
                 )
             }
             return (
                 <li className="nav-item" key={index}>
-                    <NavLink className="nav-link text-capitalize font-weight-bold" to={nav.path} >{nav.name}</NavLink>
+                    <NavLink className="nav-link text-capitalize" to={nav.path} >{nav.name}</NavLink>
                 </li>
             )
         })
@@ -48,7 +53,7 @@ const Header = (props) => {
         (
             <>
                 <li className="nav-item">
-                    <NavLink className="nav-link font-weight-bold" activeClassName="active" to="/login">Login</NavLink>
+                    <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
                 </li>
                 {/* <li className="nav-item">
                     <NavLink className="nav-link font-weight-bold" to="/register">Register</NavLink>
@@ -72,7 +77,7 @@ const Header = (props) => {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
-                        {navBartems}
+                        {navBarItems}
                     </ul>
                 </div>
             </nav>

@@ -4,7 +4,8 @@ import Header from '../components/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as spinnerActions from '../redux/actions/spinnerActions';
-import Axios from 'axios';
+import { AxiosInstance } from '../axiosInstance';
+import { USER_LOGIN_URL } from '../apiUrlConstants';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const Login = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         props.spinnerActions.showSpinner();
-        Axios.post('http://batshitcode.com/auth/local', {
+        AxiosInstance.post(USER_LOGIN_URL, {
             identifier: email,
             password: password,
         }).then(response => {
@@ -32,40 +33,38 @@ const Login = (props) => {
     return (
         <>
             <Header />
-            <div className="container mt-5">
-                <h1 className="mb-5">Login</h1>
+            <div className="container mx-auto">
+                <div className="mt-5 mb-5 row justify-content-center">
+                    <h1 className="display-3">Login</h1>
+                </div>
                 <form onSubmit={onSubmit}>
-                    <div className="row justify-content-md-center">
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label htmlFor="email">Email address</label>
-                                <input type="email" 
-                                    name="email" 
-                                    className="form-control" 
-                                    id="email" 
-                                    aria-describedby="emailHelp" 
-                                    onChange={(e) => setEmail(e.target.value)} 
-                                    required/>
+                    <div className="row d-flex justify-content-center mt-3">
+                        <div className="d-flex flex-column col-md-4 justify-content-center">
+                            <div className="form-group mt-2">
+                                <input 
+                                    placeholder="Email"
+                                    type="email"
+                                    name="email"
+                                    className="form-control"
+                                    id="email"
+                                    aria-describedby="emailHelp"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required />
                             </div>
-                        </div>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" 
-                                    name="password" 
-                                    id="password" 
-                                    className="form-control" 
-                                    onChange={(e) => setPassword(e.target.value)} 
-                                    required/>
+                            <div className="form-group mt-2">
+                                <input 
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    id="password"
+                                    className="form-control"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required />
                             </div>
-                        </div>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        <div className="col-md-4">
-                            <button type="submit" 
-                                className="btn btn-dark">Login</button>
+                            <div className="form-group mt-2">
+                                <button type="submit"
+                                    className="btn form-control btn-dark btn-block">Login</button>
+                            </div>
                         </div>
                     </div>
                 </form>

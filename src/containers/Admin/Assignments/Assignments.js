@@ -54,7 +54,7 @@ const Assignments = (props) => {
                 <td>{assignment.name}</td>
                 <td>
                     <Link to={{
-                        pathname: `/home/assignments/edit/${assignment.id}`,
+                        pathname: `/admin/home/assignments/edit/${assignment.id}`,
                         state: { name: assignment.name, content: assignment.content }
                     }}>
                         <FontAwesomeIcon icon={faEdit} />
@@ -65,7 +65,7 @@ const Assignments = (props) => {
                     </a>
                     {" "}
                     <Link to={{
-                        pathname: `/home/assignments/groups/${assignment.id}`,
+                        pathname: `/admin/home/assignments/groups/${assignment.id}`,
                         state: { name: assignment.name }
                     }}>
                         <FontAwesomeIcon icon={faUsers} />
@@ -80,7 +80,7 @@ const Assignments = (props) => {
             <div className="container mt-5">
                 <div className="row mb-2">
                     <div className="d-flex justify-content-start col-md-auto p-0">
-                        <Link to="/home/assignments/create" className="btn btn-primary btn-md">Add Assignments</Link>
+                        <Link to="/admin/home/assignments/create" className="btn btn-primary btn-md">Add Assignments</Link>
                     </div>
                 </div>
                 <div className="row">

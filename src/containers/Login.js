@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
@@ -6,14 +6,15 @@ import { bindActionCreators } from 'redux';
 import * as spinnerActions from '../redux/actions/spinnerActions';
 import { AxiosInstance } from '../axiosInstance';
 import { USER_LOGIN_URL } from '../apiUrlConstants';
+import { AuthContext } from '../auth/AuthContext';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const authContext = useContext(AuthContext);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.spinnerActions.showSpinner();
         AxiosInstance.post(USER_LOGIN_URL, {
             identifier: email,
             password: password,
@@ -21,6 +22,9 @@ const Login = (props) => {
             localStorage.setItem("token", response.data.jwt);
             localStorage.setItem("user", JSON.stringify(response.data.user))
             localStorage.setItem("role", response.data.user.role.id);
+            authContext.setToken(response.data.jwt);
+            authContext.setUser(JSON.stringify(response.data.user));
+            authContext.setRole(response.data.user.role.id);
             toast.success("Welcome back!!");
             props.spinnerActions.hideSpinner();
             props.history.push('/home');
@@ -41,7 +45,7 @@ const Login = (props) => {
                     <div className="row d-flex justify-content-center mt-3">
                         <div className="d-flex flex-column col-md-4 justify-content-center">
                             <div className="form-group mt-2">
-                                <input 
+                                <input
                                     placeholder="Email"
                                     type="email"
                                     name="email"
@@ -52,7 +56,7 @@ const Login = (props) => {
                                     required />
                             </div>
                             <div className="form-group mt-2">
-                                <input 
+                                <input
                                     type="password"
                                     placeholder="Password"
                                     name="password"

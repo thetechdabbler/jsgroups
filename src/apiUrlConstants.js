@@ -1,4 +1,4 @@
-export const BASE_URL = "http://batshitcode.com/";
+export const BASE_URL = process.env.REACT_APP_API_URL;
 
 // Assignments URL constants
 export const USER_LOGIN_URL = 'auth/local'

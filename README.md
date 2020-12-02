@@ -8,6 +8,13 @@ In the project directory, you can run:
 
 ### `npm start`
 
+You need to create ```.env.development``` for development and ```.env.production``` for production.\
+And define below declared environment variables to make your app work
+
+```
+CREATE_APP_API_URL=http://example.com/
+```
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

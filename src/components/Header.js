@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import navItems from '../navItems';
@@ -6,20 +6,21 @@ import Modal from '../utilComponents/Modal/Modal';
 import * as spinnerActions from '../redux/actions/spinnerActions';
 import * as modalActions from '../redux/actions/modalActions';
 import { connect } from 'react-redux';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSmile, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AuthContext } from '../auth/AuthContext';
 
 const Header = (props) => {
+    const [userProfileDropdown, setUserProfileDropdown] = useState(false);
     const authContext = useContext(AuthContext);
     const authUserRole = authContext.role;
     const navs = navItems[authUserRole];
     const user = JSON.parse(authContext.user);
-    console.log({user});
     let isUserAuthenticated = (authContext.token) ? true : false;
-    console.log({ isUserAuthenticated });
+
     const showModalPopup = (e) => {
         e.preventDefault();
+        setUserProfileDropdown(prevState => !prevState);
         props.showModal()
     }
 
@@ -39,14 +40,28 @@ const Header = (props) => {
 
     const logoutNavItem = (
         <>
-            <li className="nav-item" key="/logout">
-                <NavLink className="nav-link text-capitalize" to="/logout" onClick={showModalPopup}>
-                    Logout {" "}
-                    <FontAwesomeIcon icon={faSignOutAlt} />
-                </NavLink>
-            </li>
             <li className="nav-item">
-                {isUserAuthenticated ? user.name : ""}
+                <div className={userProfileDropdown ? "dropdown show" : "dropdown" }>
+                    <a className="nav-link text-capitalize dropdown-toggle" 
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" 
+                        aria-expanded="false" 
+                        onClick={(e)=> { e.preventDefault(); setUserProfileDropdown(prevState => !prevState); } }>
+                        Hello {isUserAuthenticated ? user.name : ""}
+                        {" "}
+                        <FontAwesomeIcon icon={faSmile}/>
+                    </a>
+                    <div className={userProfileDropdown ? "dropdown-menu show" : "dropdown-menu" } aria-labelledby="dropdownMenuLink">
+                        <a className="dropdown-item" href="#">Profile</a>
+                        <NavLink className="dropdown-item text-capitalize" to="/logout" onClick={showModalPopup}>
+                            Logout {" "}
+                            <FontAwesomeIcon icon={faSignOutAlt} />
+                        </NavLink>
+                    </div>
+                </div>
             </li>
         </>
     )

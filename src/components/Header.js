@@ -6,7 +6,7 @@ import Modal from '../utilComponents/Modal/Modal';
 import * as spinnerActions from '../redux/actions/spinnerActions';
 import * as modalActions from '../redux/actions/modalActions';
 import { connect } from 'react-redux';
-import { faSignOutAlt, faSmile, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faSmile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AuthContext } from '../auth/AuthContext';
 
@@ -43,19 +43,19 @@ const Header = (props) => {
             <li className="nav-item">
                 <div className={userProfileDropdown ? "dropdown show" : "dropdown" }>
                     <a className="nav-link text-capitalize dropdown-toggle" 
-                        href="#"
+                        href="/"
                         role="button"
                         id="dropdownMenuLink"
                         data-toggle="dropdown"
                         aria-haspopup="true" 
                         aria-expanded="false" 
                         onClick={(e)=> { e.preventDefault(); setUserProfileDropdown(prevState => !prevState); } }>
-                        Hello {isUserAuthenticated ? user.name : ""}
+                        Hello {isUserAuthenticated && user ? user.name : ""}
                         {" "}
                         <FontAwesomeIcon icon={faSmile}/>
                     </a>
                     <div className={userProfileDropdown ? "dropdown-menu show" : "dropdown-menu" } aria-labelledby="dropdownMenuLink">
-                        <a className="dropdown-item" href="#">Profile</a>
+                        <a className="dropdown-item" href="/">Profile</a>
                         <NavLink className="dropdown-item text-capitalize" to="/logout" onClick={showModalPopup}>
                             Logout {" "}
                             <FontAwesomeIcon icon={faSignOutAlt} />
@@ -66,7 +66,7 @@ const Header = (props) => {
         </>
     )
 
-    const navUnauthNavItems = (
+    const navUnAuthNavItems = (
         <>
             <li className="nav-item">
                 <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
@@ -100,7 +100,7 @@ const Header = (props) => {
                     <ul className="navbar-nav ml-auto">
                         {isUserAuthenticated ? (
                             navBarItems
-                        ) : navUnauthNavItems}
+                        ) : navUnAuthNavItems}
                         {isUserAuthenticated ? logoutNavItem : ""}
                     </ul>
                 </div>

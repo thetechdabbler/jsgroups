@@ -2,10 +2,10 @@ import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams, withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
-import { GROUP_USERS_URL } from '../../../apiUrlConstants';
+import { GROUP_USERS_ASSIGNMENTS_URL, GROUP_USERS_URL } from '../../../apiUrlConstants';
 import { AxiosInstance } from '../../../axiosInstance';
 import * as spinnerActions from '../../../redux/actions/spinnerActions';
 
@@ -16,17 +16,39 @@ const AssignGroupAssignments = (props) => {
     const [assignedUsers, setAssignedUsers] = useState([]);
 
     useEffect(() => {
-        console.log("Assign Group Assignments");
-        props.spinnerActions.showSpinner();
-        AxiosInstance.get(GROUP_USERS_URL).then((response) => {
-            props.spinnerActions.hideSpinner();
-            setGroupUsers([...response.data]);
-            console.log(response.data);
-        }).catch((error) => {
-            props.spinnerActions.hideSpinner();
-            toast.error("Unable to fetch group users..")
-        })
+        getGroupUsers();
     }, []);
+
+    const getGroupUsers = async() => {
+        props.spinnerActions.showSpinner();
+        const groupUserAssignmentsResponse = await AxiosInstance.get(`${GROUP_USERS_ASSIGNMENTS_URL}?assignment.id=${id}`);
+        if (groupUserAssignmentsResponse.status == 200) {
+            let groupUserIds = [];
+            if (Array.isArray(groupUserAssignmentsResponse.data) && groupUserAssignmentsResponse.data.length) {
+                groupUserIds = groupUserAssignmentsResponse.data.map(groupUserAssignment => {
+                    return groupUserAssignment.group_user.id;
+                });
+            }
+
+            const groupUsersResponse = await AxiosInstance.get(GROUP_USERS_URL);
+            if (groupUsersResponse.status == 200) {
+                setGroupUsers([...groupUsersResponse.data]);
+                if (groupUserIds.length) {
+                    const filteredGroupUsers = groupUsersResponse.data.filter((groupUser) => {
+                        return !groupUserIds.includes(groupUser.id) ? groupUser : false;
+                    });
+                    setGroupUsers([...filteredGroupUsers]);
+                }
+            } else {
+                toast.error("Unable to fetch group users..")
+            }
+            props.spinnerActions.hideSpinner();
+        } else {
+            toast.error("Unable to fetch assigned group users..")
+            props.spinnerActions.hideSpinner();
+        }
+    }
+
 
     const selectCheckbox = (e) => {
         if (e.target.checked) {
@@ -47,7 +69,7 @@ const AssignGroupAssignments = (props) => {
                             className="form-check-input"
                             type="checkbox"
                             name="assigned_user"
-                            value={groupUser.users_permissions_user.id}
+                            value={groupUser.id}
                             onChange={selectCheckbox}
                         />
                     </div>
@@ -60,7 +82,18 @@ const AssignGroupAssignments = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.table(assignedUsers);
+        props.spinnerActions.showSpinner();
+        AxiosInstance.post(GROUP_USERS_ASSIGNMENTS_URL, {
+            assignment_id: id,
+            group_user_ids: assignedUsers
+        }).then(data=> {
+            props.spinnerActions.hideSpinner();
+            toast.success("Assigned Assignments to group users");
+            props.history.push('/admin/home/assignments');
+        }).catch(error => {
+            toast.error("Something went wrong!!!")
+            props.spinnerActions.hideSpinner();
+        })
     }
 
     return (
@@ -93,7 +126,7 @@ const AssignGroupAssignments = (props) => {
                                         {(groupUsersRows.length && Array.isArray(groupUsersRows)) ? groupUsersRows : (
                                             <tr className="text-center">
                                                 <td></td>
-                                                <td className="text-center">No Assignments Found</td>
+                                                <td className="text-center">No Users Found to give Assignments</td>
                                                 <td></td>
                                             </tr>
                                         )}
@@ -124,4 +157,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(AssignGroupAssignments);
+export default connect(null, mapDispatchToProps)(withRouter(AssignGroupAssignments));

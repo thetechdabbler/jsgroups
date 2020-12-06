@@ -1,44 +1,54 @@
 import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
-import { ASSIGNMENTS_URL } from '../../apiUrlConstants';
+import { GROUP_USERS_ASSIGNMENTS_URL, GROUP_USERS_URL } from '../../apiUrlConstants';
 import { AxiosInstance } from '../../axiosInstance';
 import * as spinnerActions from '../../redux/actions/spinnerActions';
+import { AuthContext } from '../../auth/AuthContext';
 
 const StudyAssignments = (props) => {
-    const [assignments, setAssignments] = useState([]);
-
+    const [groupUserAssignments, setGroupUserAssignments] = useState([]);
+    const authContext = useContext(AuthContext);
+    const authUser = JSON.parse(authContext.user);
     useEffect(() => {
-        props.spinnerActions.showSpinner();
-        AxiosInstance.get(ASSIGNMENTS_URL)
-            .then((response) => {
-                if (response.data.length) {
-                    setAssignments([...response.data]);
-                }
-                props.spinnerActions.hideSpinner();
-            })
-            .catch((error) => {
-                props.spinnerActions.hideSpinner();
-                toast.error("Unable to fetch assignments..")
-            })
+        fetchAssignmentForUsers();
     }, []);
 
-    const assignmentRows = assignments.map((assignment) => {
+    const fetchAssignmentForUsers = async () => {
+        props.spinnerActions.showSpinner();
+        const groupUserResponse = await AxiosInstance.get(`${GROUP_USERS_URL}?users_permissions_user.id=${authUser.id}`);
+        if (groupUserResponse.status == 200) {
+            if (Array.isArray(groupUserResponse.data) && groupUserResponse.data.length) {
+                const response = await AxiosInstance.get(`${GROUP_USERS_ASSIGNMENTS_URL}?group_user.id=${groupUserResponse.data[0].id}`)
+                if (groupUserResponse.status == 200 && response.data.length) {
+                    setGroupUserAssignments([...response.data]);
+                }
+                props.spinnerActions.hideSpinner();
+            }
+        } else {
+            props.spinnerActions.hideSpinner();
+            toast.error("Something went wrong. Please contact Admin");
+        }
+
+    }
+
+    const assignmentRows = groupUserAssignments.map((groupUserAssignment) => {
+        const {assignment} = groupUserAssignment;
         return (
-            <li className="list-group-item" key={assignment.id}>
+            <li className="list-group-item" key={groupUserAssignment.id}>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="font-weight-bold">{assignment.name}</div>
                     <div>
-                        <Link to={{ pathname: `/home/assignments/${assignment.id}`, state: {assignment}}}>
+                        <Link to={{ pathname: `/home/assignments/${groupUserAssignment.id}`, state: { groupUserAssignment } }}>
                             <FontAwesomeIcon icon={faArrowCircleRight} />
                         </Link>
                     </div>
                 </div>
-                    
+
             </li>
         )
     });

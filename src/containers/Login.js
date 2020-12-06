@@ -7,6 +7,7 @@ import * as spinnerActions from '../redux/actions/spinnerActions';
 import { AxiosInstance } from '../axiosInstance';
 import { USER_LOGIN_URL } from '../apiUrlConstants';
 import { AuthContext } from '../auth/AuthContext';
+import { APP_USER_HOME } from '../appUrlConstants';
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const Login = (props) => {
             authContext.setRole(response.data.user.role.id);
             toast.success("Welcome back!!");
             props.spinnerActions.hideSpinner();
-            props.history.push('/home');
+            props.history.push(APP_USER_HOME);
         }).catch(error => {
             toast.error("Invalid User Credentials");
             props.spinnerActions.hideSpinner();

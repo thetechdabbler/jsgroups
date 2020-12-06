@@ -12,11 +12,11 @@ import "ace-builds/src-noconflict/theme-solarized_light";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
-import { AxiosInstance } from '../../axiosInstance';
-import { GROUP_USERS_ASSIGNMENTS_URL } from '../../apiUrlConstants';
+import { AxiosInstance } from '../../../axiosInstance';
+import { GROUP_USERS_ASSIGNMENTS_URL } from '../../../apiUrlConstants';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as spinnerActions from '../../redux/actions/spinnerActions';
+import * as spinnerActions from '../../../redux/actions/spinnerActions';
 import { toast } from 'react-toastify';
 
 const SolveAssignment = (props) => {

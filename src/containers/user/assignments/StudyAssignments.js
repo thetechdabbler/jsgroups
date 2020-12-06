@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { bindActionCreators } from 'redux';
-import { GROUP_USERS_ASSIGNMENTS_URL, GROUP_USERS_URL } from '../../apiUrlConstants';
-import { AxiosInstance } from '../../axiosInstance';
-import * as spinnerActions from '../../redux/actions/spinnerActions';
-import { AuthContext } from '../../auth/AuthContext';
+import { GROUP_USERS_ASSIGNMENTS_URL, GROUP_USERS_URL } from '../../../apiUrlConstants';
+import { AxiosInstance } from '../../../axiosInstance';
+import * as spinnerActions from '../../../redux/actions/spinnerActions';
+import { AuthContext } from '../../../auth/AuthContext';
 
 const StudyAssignments = (props) => {
     const [groupUserAssignments, setGroupUserAssignments] = useState([]);

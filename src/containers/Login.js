@@ -58,7 +58,8 @@ const Login = (props) => {
                                     id="email"
                                     aria-describedby="emailHelp"
                                     onChange={(e) => setEmail(e.target.value)}
-                                    required />
+                                    required
+                                />
                             </div>
                             <div className="form-group mt-2">
                                 <input
@@ -68,7 +69,8 @@ const Login = (props) => {
                                     id="password"
                                     className="form-control"
                                     onChange={(e) => setPassword(e.target.value)}
-                                    required />
+                                    required
+                                />
                             </div>
                             <div className="form-group mt-2">
                                 <button type="submit"

@@ -3,7 +3,7 @@ import { faDollarSign, faFileAlt, faThumbsUp, faUserAlt } from '@fortawesome/fre
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './admin-home.css';
 
-const Home = () => {
+const AdminStats = () => {
     return (
         <>
             <div className="wrapper container">
@@ -70,4 +70,4 @@ const Home = () => {
         </>
     )
 }
-export default Home
+export default AdminStats;

@@ -4,4 +4,4 @@ export const BASE_URL = process.env.REACT_APP_API_URL;
 export const USER_LOGIN_URL = 'auth/local'
 export const ASSIGNMENTS_URL = 'assignments';
 export const GROUP_USERS_URL = 'group-users';
-export const GROUP_USERS_ASSIGNMENTS_URL = 'group-user-assignments'; 
+export const GROUP_USERS_ASSIGNMENTS_URL = 'group-user-assignments';

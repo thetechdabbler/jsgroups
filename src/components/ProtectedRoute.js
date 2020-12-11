@@ -1,11 +1,12 @@
 import { Redirect, Route } from 'react-router-dom';
 import HOC from './HOC';
+import * as roles from '../rolesConstants';
 
 const ProtectedRoute = (props) => {
     const {component, userRole, ...rest} = props;
 
     const redirectToDesiredDashboard = (userRole) => {
-        if(Number(userRole) === 3) {
+        if(Number(userRole) === roles.ADMIN_ROLE) {
             return <Redirect to="/admin/home" />
         }
         return <Redirect to="/home" />
